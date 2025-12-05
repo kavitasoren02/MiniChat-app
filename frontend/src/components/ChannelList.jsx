@@ -70,7 +70,7 @@ export default function ChannelList({
                     </div>
                     <p className="text-xs text-gray-500 mt-1">{channel.members.length} members</p>
                   </div>
-                  {(isMember || isOwner) && (
+                  {(
                     <div className="relative flex-shrink-0 ml-2">
                       <button
                         onClick={(e) => {
@@ -121,7 +121,7 @@ export default function ChannelList({
                               Delete Channel
                             </button>
                           )}
-                          {isMember && (
+                          { isOwner ? null : isMember ? (
                             <button
                               onClick={(e) => {
                                 e.stopPropagation()
@@ -132,6 +132,18 @@ export default function ChannelList({
                             >
                               <LogOut size={16} />
                               Leave Channel
+                            </button>
+                          ) : (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                onJoinChannel(channel._id)
+                                setOpenMenuId(null)
+                              }}
+                              className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors flex items-center gap-2"
+                            >
+                              <LogOut size={16} className="rotate-180" />
+                              Join Channel
                             </button>
                           )}
                         </div>
