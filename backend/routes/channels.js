@@ -11,7 +11,8 @@ router.get("/", authenticateToken, async (req, res) => {
     const channels = await Channel.find({
       $or: [
         { isPrivate: false },
-        { isPrivate: true, createdBy: userId }
+        { isPrivate: true, createdBy: userId },
+        { isPrivate: true, members: userId }
       ]
     })
       .populate("createdBy", "username")
